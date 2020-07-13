@@ -1,6 +1,7 @@
 // Global app controller
 //https://forkify-api.herokuapp.com/api/search
 import Search from './models/Search';
+import Recipe from './models/Recipe';
 import * as searchView from './views/searchView';
 import { elements, renderLoader, clearLoader } from './views/base';
 
@@ -11,7 +12,9 @@ import { elements, renderLoader, clearLoader } from './views/base';
 * - Liked Recipes
 */
 const state = {};
-
+ /**
+  * SEARCH CONTROLLER
+  */
 const controlSearch = async () => {
     // 1 - Get query from view
     const query = searchView.getInput();
@@ -33,7 +36,7 @@ const controlSearch = async () => {
         searchView.renderResults(state.search.result);
     }
 
-}
+};
 
 elements.searchForm.addEventListener('submit', e => {
     e.preventDefault();
@@ -50,3 +53,10 @@ elements.searchResPages.addEventListener('click', e => {
         searchView.renderResults(state.search.result, goToPage);
     }
 });
+
+/**
+ * RECIPE CONTROLLER
+ */
+const r = new Recipe(47746);
+r.getRecipe();
+console.log(r);
