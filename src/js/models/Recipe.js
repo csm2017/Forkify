@@ -12,6 +12,7 @@ export default class Search {
             this.author = res.data.recipe.publisher;
             this.img = res.data.recipe.image_url;
             this.ingredients = res.data.recipe.ingredients;
+            this.url = res.data.recipe.source_url;
         } catch(error) {
             console.log(error);
             alert('Something went wrong :(');
