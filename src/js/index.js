@@ -1,3 +1,13 @@
+/**
+ * TODO Features
+ * Implement button to delete all shopping list items
+ * Implement functionality to manually add items to shopping list
+ * Save shopping list data in local storage
+ * Improve the ingredient parsing algorithm
+ * Come up with an algorithm for calculating the amount of servings
+ * Improve error handling
+ */
+
 // Global app controller
 //https://forkify-api.herokuapp.com/api/search
 import Search from './models/Search';
@@ -17,7 +27,7 @@ import { elements, renderLoader, clearLoader } from './views/base';
 * - Liked Recipes
 */
 const state = {};
-window.state = state;
+
  /**
   * SEARCH CONTROLLER
   */
@@ -105,6 +115,7 @@ const controlRecipe = async () => {
 
 ['hashchange', 'load'].forEach(event => window.addEventListener(event, controlRecipe));
 
+
 /**
  * LIST CONTROLLER
  */
@@ -140,8 +151,8 @@ const controlRecipe = async () => {
  /**
  * LIKES CONTROLLER
  */
-state.likes = new Likes();
-likesView.toggleLikeMenu(state.likes.getNumLikes());
+
+
 const controlLike = () => {
     if (!state.likes) state.likes = new Likes();
     const currentID = state.recipe.id;
@@ -173,7 +184,21 @@ const controlLike = () => {
     }
 
     likesView.toggleLikeMenu(state.likes.getNumLikes());
-}
+};
+
+// Restore liked recipes on page load
+window.addEventListener('load', () => {
+    state.likes = new Likes();
+    
+    // Restore likes
+    state.likes.readStorage();
+
+    // Toggle like menu button
+    likesView.toggleLikeMenu(state.likes.getNumLikes());
+
+    //Render the existing likes
+    state.likes.likes.forEach(like => likesView.renderLike(like));
+});
 
 
 //Handling recipe button clicks
